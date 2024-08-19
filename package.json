@@ -14,7 +14,10 @@
     "react-dom": "18.3.1"
   },
   "devDependencies": {
-    "eslint": "8.57.0",
+    "@rocketseat/eslint-config": "^2.2.2",
+    "eslint": "^8.57.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-config-next": "14.2.5"
+
   }
 }
