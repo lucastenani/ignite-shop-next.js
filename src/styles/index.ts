@@ -23,4 +23,9 @@ export const {
       primaryLight: '#00B37E',
     },
   },
+  media: {
+    bp1: '(min-width: 600px)',
+    bp2: '(min-width: 900px)',
+    bp3: '(min-width: 1200px)',
+  },
 })
