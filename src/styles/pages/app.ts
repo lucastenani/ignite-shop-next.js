@@ -22,3 +22,5 @@ export const Header = styled('header', {
     padding: '2rem 0',
   },
 })
+
+export const MainContainer = styled('main', { width: '100%' })

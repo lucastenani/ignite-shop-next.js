@@ -22,6 +22,12 @@ export const {
       primary: '#00875F',
       primaryLight: '#00B37E',
     },
+    fontSizes: {
+      md: '1.125rem',
+      lg: '1.25rem',
+      xl: '1.5rem',
+      '2xl': '2rem',
+    },
   },
   media: {
     bp1: '(min-width: 600px)',
