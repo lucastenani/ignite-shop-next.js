@@ -4,7 +4,6 @@ export const Container = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
-  padding: '1rem .5rem',
 
   '@bp1': {
     justifyContent: 'center',

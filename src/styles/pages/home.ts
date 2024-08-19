@@ -2,25 +2,22 @@ import { styled } from '..'
 
 export const HomeContainer = styled('section', {
   width: '100%',
-
   display: 'flex',
-  flexDirection: 'column',
+  minHeight: 656,
 
   '@bp2': {
     maxWidth: 'calc(100vw - ((100vw - 1180px) /2))',
     marginLeft: 'auto',
-
-    flexDirection: 'row',
   },
 })
 
 export const Product = styled('article', {
   background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
   borderRadius: 8,
-  padding: '0.25rem',
   cursor: 'pointer',
   position: 'relative',
   overflow: 'hidden',
+  minHeight: '600px',
 
   display: 'flex',
   alignItems: 'center',
@@ -28,7 +25,6 @@ export const Product = styled('article', {
 
   img: {
     objectFit: 'cover',
-    width: '100%',
   },
 
   footer: {
@@ -71,6 +67,9 @@ export const Product = styled('article', {
   },
 
   '@bp2': {
+    width: 'auto',
+    minWidth: 540,
+
     '&:hover': {
       footer: { transform: 'translateY(0%)', opacity: 1 },
     },
