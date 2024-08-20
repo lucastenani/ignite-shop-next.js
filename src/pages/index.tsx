@@ -3,6 +3,7 @@ import 'keen-slider/keen-slider.min.css'
 import { useKeenSlider } from 'keen-slider/react'
 import { GetStaticProps } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 import Stripe from 'stripe'
 
 import { stripe } from '../lib/stripe'
@@ -20,6 +21,7 @@ interface HomeProps {
 export default function Home({ products }: HomeProps) {
   const [sliderRef] = useKeenSlider({
     slides: { perView: 1 },
+    loop: true,
 
     breakpoints: {
       '(min-width: 900px)': {
@@ -33,7 +35,7 @@ export default function Home({ products }: HomeProps) {
       {products.map((product) => {
         return (
           <Product key={product.id} className="keen-slider__slide">
-            <a href={`product/${product.id}`}>
+            <Link href={`product/${product.id}`}>
               <Image
                 src={product.imageUrl}
                 alt={`${product.name} image.`}
@@ -45,7 +47,7 @@ export default function Home({ products }: HomeProps) {
                 <strong>{product.name}</strong>
                 <span>{product.price}</span>
               </footer>
-            </a>
+            </Link>
           </Product>
         )
       })}

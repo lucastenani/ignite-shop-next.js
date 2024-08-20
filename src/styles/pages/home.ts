@@ -19,9 +19,13 @@ export const Product = styled('article', {
   overflow: 'hidden',
   minHeight: '600px',
 
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  a: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 
   img: {
     objectFit: 'cover',
