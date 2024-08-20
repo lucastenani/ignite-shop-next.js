@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
 import Stripe from 'stripe'
 
@@ -10,32 +10,47 @@ import {
 } from '../../styles/pages/product'
 
 interface ProductProps {
-  product: {
-    id: string
-    name: string
-    imageUrl: string
-    price: string
-    description?: string
-  }
+  id: string
+  name: string
+  imageUrl: string
+  price: string
+  description?: string
 }
 
-export default function Product({ product }: ProductProps) {
+export default function Product({
+  imageUrl,
+  name,
+  price,
+  description,
+}: ProductProps) {
   return (
     <ProductContainer>
       <ImageContainer>
-        <Image src={product.imageUrl} alt={`${product.imageUrl} Image.`} />
+        <Image
+          src={imageUrl}
+          alt={`${imageUrl} Image.`}
+          width={400}
+          height={400}
+        />
       </ImageContainer>
 
       <ProductDetails>
-        <h1>{product.name}</h1>
-        <span>{product.price}</span>
+        <h1>{name}</h1>
+        <span>{price}</span>
 
-        <p>{product.description}</p>
+        <p>{description}</p>
 
         <button>Buy now</button>
       </ProductDetails>
     </ProductContainer>
   )
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [{ params: { id: 'prod_Qfr8kXe3UI4lWS' } }],
+    fallback: 'blocking',
+  }
 }
 
 export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
@@ -46,7 +61,6 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
   const product = await stripe.products.retrieve(productId, {
     expand: ['default_price'],
   })
-
   const price = product.default_price as Stripe.Price
 
   return {
@@ -60,6 +74,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
       }),
       description: product.description,
     },
+
     revalidate: 60 * 60 * 1,
   }
 }

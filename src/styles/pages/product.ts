@@ -19,7 +19,7 @@ export const ProductContainer = styled('section', {
 
 export const ImageContainer = styled('div', {
   width: '100%',
-  maxWidth: 576,
+  maxWidth: 350,
   height: 400,
   background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
   borderRadius: 8,
@@ -30,11 +30,7 @@ export const ImageContainer = styled('div', {
   alignItems: 'center',
   justifyContent: 'center',
 
-  img: { objectFit: 'cover' },
-
-  '@bp2': {
-    height: 656,
-  },
+  img: { objectFit: 'cover', width: '100%', height: '100%' },
 })
 
 export const ProductDetails = styled('article', {
