@@ -3,7 +3,6 @@ import { styled } from '..'
 export const HomeContainer = styled('section', {
   width: '100%',
   display: 'flex',
-  minHeight: 656,
 
   '@bp2': {
     maxWidth: 'calc(100vw - ((100vw - 1180px) /2))',
@@ -17,18 +16,17 @@ export const Product = styled('article', {
   cursor: 'pointer',
   position: 'relative',
   overflow: 'hidden',
-  minHeight: '600px',
+  maxWidth: 350,
+  maxHeight: 400,
 
-  a: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 
   img: {
     objectFit: 'cover',
+    width: '100%',
+    height: '100%',
   },
 
   footer: {
@@ -71,8 +69,8 @@ export const Product = styled('article', {
   },
 
   '@bp2': {
-    width: 'auto',
-    minWidth: 540,
+    // width: 'auto',
+    // minWidth: 540,
 
     '&:hover': {
       footer: { transform: 'translateY(0%)', opacity: 1 },

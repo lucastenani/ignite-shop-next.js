@@ -25,7 +25,7 @@ export default function Home({ products }: HomeProps) {
 
     breakpoints: {
       '(min-width: 900px)': {
-        slides: { perView: 2.5, spacing: 32 },
+        slides: { perView: 2.6, spacing: 32 },
       },
     },
   })
@@ -39,8 +39,8 @@ export default function Home({ products }: HomeProps) {
               <Image
                 src={product.imageUrl}
                 alt={`${product.name} image.`}
-                width={520}
-                height={480}
+                width={350}
+                height={400}
               />
 
               <footer>

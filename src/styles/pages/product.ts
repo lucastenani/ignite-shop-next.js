@@ -13,7 +13,6 @@ export const ProductContainer = styled('section', {
   '@bp2': {
     gridTemplateColumns: '1fr 1fr',
     alignItems: 'stretch',
-    gap: '4rem',
   },
 })
 
