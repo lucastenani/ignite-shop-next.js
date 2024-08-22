@@ -71,7 +71,9 @@ export const ProductDetails = styled('article', {
     cursor: 'pointer',
     fontWeight: 'bold',
 
-    '&:hover': { background: '$primaryLight' },
+    '&:not(disabled):hover': { background: '$primaryLight' },
+
+    '&:disabled': { opacity: 0.6, cursor: 'not-allowed' },
 
     '@bp2': { marginTop: 'auto', padding: '1.25rem', fontSize: '$md' },
   },
