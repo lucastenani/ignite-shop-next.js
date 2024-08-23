@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import Head from 'next/head'
 import Image from 'next/image'
 import { useState } from 'react'
 import Stripe from 'stripe'
@@ -47,27 +48,35 @@ export default function Product({
   }
 
   return (
-    <ProductContainer>
-      <ImageContainer>
-        <Image
-          src={imageUrl}
-          alt={`${imageUrl} Image.`}
-          width={400}
-          height={400}
-        />
-      </ImageContainer>
+    <>
+      <Head>
+        <title>{name} | Ignite Shop</title>
+      </Head>
+      <ProductContainer>
+        <ImageContainer>
+          <Image
+            src={imageUrl}
+            alt={`${imageUrl} Image.`}
+            width={400}
+            height={400}
+          />
+        </ImageContainer>
 
-      <ProductDetails>
-        <h1>{name}</h1>
-        <span>{price}</span>
+        <ProductDetails>
+          <h1>{name}</h1>
+          <span>{price}</span>
 
-        <p>{description}</p>
+          <p>{description}</p>
 
-        <button onClick={handleBuyProduct} disabled={isCreatingCheckoutSession}>
-          Buy now
-        </button>
-      </ProductDetails>
-    </ProductContainer>
+          <button
+            onClick={handleBuyProduct}
+            disabled={isCreatingCheckoutSession}
+          >
+            Buy now
+          </button>
+        </ProductDetails>
+      </ProductContainer>
+    </>
   )
 }
 
@@ -84,24 +93,53 @@ export const getStaticProps: GetStaticProps<
 > = async ({ params }) => {
   const productId = params.id
 
-  const product = await stripe.products.retrieve(productId, {
-    expand: ['default_price'],
-  })
-  const price = product.default_price as Stripe.Price
+  if (!productId) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
 
-  return {
-    props: {
-      id: product.id,
-      name: product.name,
-      imageUrl: product.images[0],
-      price: (price.unit_amount / 100).toLocaleString('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-      }),
-      description: product.description,
-      defaultPriceId: price.id,
-    },
+  try {
+    const product = await stripe.products.retrieve(productId, {
+      expand: ['default_price'],
+    })
+    const price = product.default_price as Stripe.Price
 
-    revalidate: 60 * 60 * 1,
+    if (
+      !product ||
+      !product.name ||
+      !product.id ||
+      product.images.length === 0 ||
+      !price
+    ) {
+      throw new Error('Invalid product data')
+    }
+
+    return {
+      props: {
+        id: product.id,
+        name: product.name,
+        imageUrl: product.images[0],
+        price: (price.unit_amount / 100).toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+        }),
+        description: product.description,
+        defaultPriceId: price.id,
+      },
+
+      revalidate: 60 * 60 * 1,
+    }
+  } catch (error) {
+    console.error('Error retrieving Stripe session:', error.message)
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
   }
 }
